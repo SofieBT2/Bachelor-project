@@ -1,0 +1,353 @@
+---
+title: "Portfolio_2"
+author: "Sofie Bøjgaard Thomsen"
+date: "2024-10-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Synthesize the data set
+https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/effects.html#s-md
+
+To conduct a meta-analysis of standardized mean differences, our data set should at least contain the following columns:
+
+n.e. The number of observations in the intervention/experimental group.
+mean.e. The mean of the intervention/experimental group.
+sd.e. The standard deviation in the intervention/experimental group.
+n.c. The number of observations in the control group.
+mean.c. The mean of the control group.
+sd.c. The standard deviation in the control group.
+
+```{r}
+# Install and load esc package
+install.packages("esc")
+library(esc)
+```
+
+# Combining effect sizes from multiple studies
+
+#Loading package
+```{r}
+# Load necessary package
+install.packages("meta")
+library(meta)
+```
+
+#Loading data from TST
+```{r}
+TST <- read.csv("meta/raw-data-extraction - TST.csv")
+
+# Using metacont to pool results
+m.tst <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = TST,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Total sleep time, min")
+
+m.tst <- update(m.tst, prediction = TRUE)
+summary(m.tst)
+```
+
+
+#Loading data from TIB
+```{r}
+TIB <- read.csv("meta/raw-data-extraction - TIB.csv")
+
+# Using metacont to pool results
+m.tib <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = TIB,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Total time in bed, min")
+
+m.tib <- update(m.tib, prediction = TRUE)
+summary(m.tib)
+```
+
+#Loading data from SWS
+```{r}
+SWS <- read.csv("meta/raw-data-extraction - SWS.csv")
+
+# Using metacont to pool results
+m.sws <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = SWS,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Percentage of slow wave sleep")
+
+m.sws <- update(m.sws, prediction = TRUE)
+summary(m.sws)
+```
+
+#Loading data from SOL
+```{r}
+SOL <- read.csv("meta/raw-data-extraction - SOL.csv")
+
+# Using metacont to pool results
+m.sol <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = SOL,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Sleep onset latency, min")
+
+m.sol <- update(m.sol, prediction = TRUE)
+summary(m.sol)
+```
+
+#Loading data from SEff
+```{r}
+SEff <- read.csv("meta/raw-data-extraction - SEff.csv")
+
+# Using metacont to pool results
+m.seff <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = SEff,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Sleep efficiency, %")
+
+m.seff <- update(m.seff, prediction = TRUE)
+summary(m.seff)
+```
+
+
+#Loading data from ROL
+```{r}
+ROL <- read.csv("meta/raw-data-extraction - ROL.csv")
+
+# Using metacont to pool results
+m.rol <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = ROL,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "REM sleep latency, min")
+
+m.rol <- update(m.rol, prediction = TRUE)
+summary(m.rol)
+```
+
+#Loading data from REM
+```{r}
+REM <- read.csv("meta/raw-data-extraction - REM.csv")
+
+# Using metacont to pool results
+m.rem <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = REM,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Percentage of REM sleep")
+
+
+m.rem <- update(m.rem, prediction = TRUE)
+summary(m.rem)
+```
+
+
+#Loading data from N2
+```{r}
+N2 <- read.csv("meta/raw-data-extraction - N2.csv")
+
+# Using metacont to pool results
+m.n2 <- metacont(n.e = hc_n,
+                   mean.e = hc_m,
+                   sd.e = hc_sd,
+                   n.c = nc_n,
+                   mean.c = nc_f_m,
+                   sd.c = nc_f_sd,
+                   studlab = Article,
+                   data = N2,
+                   sm = "SMD",
+                   method.smd = "Hedges",
+                   fixed = FALSE,
+                   random = TRUE,
+                   method.tau = "DL",
+                   method.random.ci = "HK",
+                   title = "Percentage of stage 2 sleep")
+
+m.n2 <- update(m.n2, prediction = TRUE)
+summary(m.n2)
+```
+
+# Making and saving forest plots
+
+#First for TST
+```{r}
+png(file = "meta/TST.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.tst, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for TIB
+```{r}
+png(file = "meta/TIB.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.tib, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for SWS
+```{r}
+png(file = "meta/SWS.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.sws, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for SOL
+```{r}
+png(file = "meta/SOL.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.sol, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for SEff
+```{r}
+png(file = "meta/SEff.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.seff, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for ROL
+```{r}
+png(file = "meta/ROL.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.rol, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Then for REM
+```{r}
+png(file = "meta/REM.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.rem, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+# Lastly, for stage 2 of sleep
+```{r}
+png(file = "meta/N2.png", width = 3200, height = 1100, res = 300)
+
+meta::forest(m.n2, 
+             sortvar = TE,
+             prediction = TRUE, 
+             print.tau2 = FALSE,
+             leftlabs = c("Author", "g", "SE"))
+
+dev.off()
+```
+
+
+```{r}
+citation()
+```
+
